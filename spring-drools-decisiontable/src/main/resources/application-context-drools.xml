@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:drools="http://drools.org/schema/drools-spring"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://drools.org/schema/drools-spring
+org/drools/container/spring/drools-spring.xsd">
+
+	<!-- To keep logical track to identify the right knowledge session -->
+	<drools:grid-node id="nodeId" /> 
+	<!-- Loading the xls file -->
+
+	<drools:resource id="resourceId" type="DTABLE"	source="classpath:com/rules/amazonOffers.xls" />
+		<!-- Creating the knowledge base -->
+	<drools:kbase id="kbaseId" node="nodeId">
+		<drools:resources>
+			<drools:resource ref="resourceId" />
+		</drools:resources>
+	</drools:kbase>
+	<!-- Creating the knowledge sessions -->
+	<drools:ksession id="kStatefulSessionId" type="stateful" kbase="kbaseId" node="nodeId" />
+	<drools:ksession id="kStatelessSessionId" type="stateless" kbase="kbaseId" node="nodeId" />
+</beans>
